@@ -70,6 +70,7 @@ class Store:
                       "importance": self._csv("ml_importance.csv"), "ablation": self._csv("ml_ablation.csv")}
         self.trend = self._csv("analytics", "rain_trend_district.csv")
         self.clim = self._csv("analytics", "rain_climatology_state.csv")
+        self.geo = self._csv("district_elevation.csv")
 
     # ------------------------------------------------------------------ slicing
     def sel(self, state=None, district=None, start=None, end=None):

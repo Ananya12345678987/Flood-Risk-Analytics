@@ -1,14 +1,8 @@
-import { useEffect, useMemo, useState } from "react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import { GeoJSON, MapContainer, TileLayer, useMap } from "react-leaflet";
+import { useState } from "react";
 import { Area, AreaChart, Bar, CartesianGrid, ComposedChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { LEVEL_COLOR, fmt, useApi } from "../api";
+import { fmt, useApi } from "../api";
 import { useFilters } from "../filters";
-
-const Box = ({ title, children, right, cls = "" }) => <section className={`card ${cls}`}><div className="card-h"><h2>{title}</h2>{right}</div>{children}</section>;
-const Status = ({ s, empty }) => (s.loading ? <p className="muted">Loading...</p> : s.error ? <p className="error-text">{s.error}</p> : empty ? <p className="muted">{empty}</p> : null);
-const Badge = ({ level }) => <span className="badge" style={{ background: LEVEL_COLOR[level] || "#eee" }}>{level}</span>;
+import { Badge, Box, RiskMap, Status } from "../ui";
 
 function Kpi({ label, k, d = 0, unavailable }) {
   const na = !k || k.value === null || unavailable;
@@ -17,38 +11,6 @@ function Kpi({ label, k, d = 0, unavailable }) {
     <div className="card kpi"><span className="muted">{label}</span>
       <b>{na ? "Data unavailable" : <>{fmt(k.value, d)} <small>{k.unit}</small></>}</b>
       <span className="muted small">{na ? unavailable || "No values in this period" : k.change_pct === null ? "no previous period" : `${up ? "up" : "down"} ${fmt(Math.abs(k.change_pct), 1)}% vs previous period`}</span></div>
-  );
-}
-
-function Fit({ data }) {
-  const map = useMap();
-  useEffect(() => { const b = L.geoJSON(data).getBounds(); if (b.isValid()) map.fitBounds(b, { padding: [8, 8] }); }, [data]);
-  return null;
-}
-
-function RiskMap({ applied }) {
-  const geo = useApi("geo/districts");
-  const risk = useApi("map", { date: applied.end, level: "district" });
-  const byId = useMemo(() => Object.fromEntries((risk.data?.rows || []).map((r) => [r.district_id, r])), [risk.data]);
-  const shown = useMemo(() => {
-    if (!geo.data) return null;
-    const keep = (f) => (applied.district ? f.properties.district_id === applied.district : !applied.state || f.properties.state === applied.state);
-    return { type: "FeatureCollection", features: geo.data.features.filter(keep) };
-  }, [geo.data, applied.state, applied.district]);
-  const style = (f) => ({ color: "#5b6b82", weight: 0.8, fillOpacity: 0.75, fillColor: LEVEL_COLOR[byId[f.properties.district_id]?.level] || "#eef1f5" });
-  const tip = (f, layer) => {
-    const r = byId[f.properties.district_id];
-    layer.bindTooltip(`${f.properties.district} (${f.properties.state})<br/>${r ? `${r.level}, score ${fmt(r.risk_score, 0)}` : "no data"}`);
-  };
-  return (
-    <Box title={`District risk map, ${applied.end}`}>
-      <Status s={geo.error ? geo : risk} empty={shown && !shown.features.length ? "No district boundaries for this selection." : null} />
-      {shown && <div className="map"><MapContainer center={[18, 80]} zoom={5} scrollWheelZoom={false} style={{ height: "100%" }}>
-        <TileLayer attribution="&copy; OpenStreetMap contributors" url="https://tile.openstreetmap.org/{z}/{x}/{y}.png" opacity={0.55} />
-        <GeoJSON key={`${applied.end}-${applied.state}-${applied.district}-${risk.data ? 1 : 0}`} data={shown} style={style} onEachFeature={tip} />
-        <Fit data={shown} /></MapContainer></div>}
-      <div className="legend">{Object.entries(LEVEL_COLOR).map(([k, c]) => <span key={k}><i style={{ background: c }} />{k}</span>)}</div>
-    </Box>
   );
 }
 
@@ -82,7 +44,7 @@ export default function Dashboard() {
         <Kpi label="Humidity" k={S.humidity} d={0} />
       </div>}
       <div className="grid2">
-        <RiskMap applied={applied} />
+        <Box title={`District risk map, ${applied.end}`}><RiskMap applied={applied} /></Box>
         <Box title="Early-warning status" right={W?.available && <Badge level={W.level} />}>
           <Status s={warn} empty={W && !W.available ? W.message : null} />
           {W?.available && <>

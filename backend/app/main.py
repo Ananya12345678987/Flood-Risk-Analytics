@@ -212,6 +212,19 @@ def create_app(data_dir=None):
         return {"note": "Linear trend of annual rainfall, 2000-2023. Significance is approximate (ignores autocorrelation).",
                 "rows": clean(t.sort_values("annual_trend_mm_per_yr", ascending=False))}
 
+    @app.get("/api/geography")
+    def geography(state: str | None = None, district: str | None = None):
+        s = check(state, district)
+        if s.geo is None:
+            raise HTTPException(503, "Elevation file not available")
+        tiers = s.d.drop_duplicates("district_id").set_index("district_id")["river_tier"].astype(str).to_dict()
+        g = s.geo.merge(s.districts[["district_id", "area_km2"]], on="district_id", how="left")
+        g["river_tier"] = g["district_id"].map(tiers)
+        g = g[g["district_id"] == district] if district else (g[g["state"] == state] if state else g)
+        cols = ["district_id", "district", "state", "area_km2", "elev_mean_m", "elev_min_m", "elev_max_m", "relief_m", "river_tier"]
+        return {"note": "Elevation sampled at ~25 km grid-cell centres inside each district (Open-Meteo/Copernicus DEM): a coarse indicator, not fine terrain.",
+                "rows": clean(g[cols].sort_values(["state", "district"]), 1)}
+
     @app.get("/api/geo/{layer}")
     def geo(layer: str):
         if layer not in GEO:

@@ -48,6 +48,10 @@ def client(tmp_path_factory):
     json.dump({"date_min": "2023-06-01", "date_max": "2023-06-30", "default_as_of": "2023-06-30", "base_onset_rate_pct": 0.5,
                "class_stats": {"score": {"HIGH": {"days": 100, "onsets": 4, "onset_rate_pct": 4.0, "lift": 8.0}}, "ml": {}}},
               open(root / "serving" / "meta.json", "w"))
+    pd.DataFrame({"district_id": ["assam__a", "assam__b", "kerala__c"], "state": ["Assam", "Assam", "Kerala"],
+                  "district": ["Alpha", "Beta", "Gamma"], "elev_mean_m": [40.0, 55.0, 120.0], "elev_min_m": [10.0, 20.0, 5.0],
+                  "elev_max_m": [90.0, 100.0, 900.0], "elev_std_m": [5.0, 6.0, 7.0], "n_samples": [3, 3, 3],
+                  "relief_m": [80.0, 80.0, 895.0], "elev_rep_point_m": [42.0, 50.0, 100.0]}).to_csv(root / "district_elevation.csv", index=False)
     w = {"rain": 0.3, "river": 0.26, "history": 0.19, "geography": 0.0, "weather": 0.25}
     json.dump({"weights_5": w, "weights_4": {**w, "river": 0.0, "rain": 0.56}}, open(root / "risk_config.json", "w"))
     return TestClient(create_app(root))
@@ -106,3 +110,10 @@ def test_missing_data_does_not_crash(tmp_path):
     h = c.get("/api/health").json()
     assert h["status"] == "degraded" and h["data_loaded"] is False
     assert c.get("/api/summary").status_code == 503
+
+
+def test_geography_endpoint(client):
+    rows = client.get("/api/geography", params={"state": "Assam"}).json()["rows"]
+    assert {r["district"] for r in rows} == {"Alpha", "Beta"}
+    assert next(r for r in rows if r["district"] == "Beta")["river_tier"] == "none"
+    assert client.get("/api/geography", params={"district": "kerala__c"}).json()["rows"][0]["relief_m"] == 895.0
