@@ -1,0 +1,16 @@
+﻿.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.env
+node_modules/
+frontend/dist/
+spark-warehouse/
+models/*.joblib
+data/raw/
+data/processed/*
+!data/processed/*.json
+!data/processed/*.csv
+!data/processed/*.geojson
+!data/processed/analytics/
+data/processed/analytics/rain_monthly/

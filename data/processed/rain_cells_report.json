@@ -1,0 +1,123 @@
+{
+  "cells": 4654,
+  "districts": 641,
+  "fallback": [
+    "nct_of_delhi__central",
+    "daman_and_diu__daman",
+    "daman_and_diu__diu",
+    "nct_of_delhi__east",
+    "punjab__fatehgarh_sahib",
+    "andhra_pradesh__hyderabad",
+    "manipur__imphal_west",
+    "west_bengal__kolkata",
+    "puducherry__mahe",
+    "maharashtra__mumbai",
+    "maharashtra__mumbai_suburban",
+    "nct_of_delhi__new_delhi",
+    "nct_of_delhi__north",
+    "punjab__sahibzada_ajit_singh_nagar",
+    "sikkim__south",
+    "nct_of_delhi__south_west",
+    "nct_of_delhi__west",
+    "puducherry__yanam",
+    "lakshadweep__lakshadweep"
+  ],
+  "years": {
+    "2000": {
+      "rows": 1694946,
+      "nan_dropped": 8418
+    },
+    "2001": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2002": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2003": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2004": {
+      "rows": 1694946,
+      "nan_dropped": 8418
+    },
+    "2005": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2006": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2007": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2008": {
+      "rows": 1694946,
+      "nan_dropped": 8418
+    },
+    "2009": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2010": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2011": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2012": {
+      "rows": 1694946,
+      "nan_dropped": 8418
+    },
+    "2013": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2014": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2015": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2016": {
+      "rows": 1694946,
+      "nan_dropped": 8418
+    },
+    "2017": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2018": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2019": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2020": {
+      "rows": 1694946,
+      "nan_dropped": 8418
+    },
+    "2021": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2022": {
+      "rows": 1690315,
+      "nan_dropped": 8395
+    },
+    "2023": {
+      "rows": 1690261,
+      "nan_dropped": 8449
+    }
+  }
+}

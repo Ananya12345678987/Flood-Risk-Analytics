@@ -1,0 +1,38 @@
+{
+  "states_in_outline": 35,
+  "pilot_districts": 106,
+  "pilot_duplicate_ids": 0,
+  "ifi_rows_total": 6876,
+  "dropped_bad_start_date": 20,
+  "events_in_period": 4615,
+  "end_date_fixed_to_start": 17,
+  "max_span_days": 365,
+  "events_span_over_60_days": 64,
+  "multi_state_rows_excluded_all_india": 32,
+  "multi_state_rows_excluded_touching_pilot": 0,
+  "pilot_events": 2199,
+  "district_piece_status": {
+    "exact": 6139,
+    "unmatched": 13,
+    "split": 29,
+    "empty": 35
+  },
+  "unmatched_examples": [
+    "karnataka: parts of karnataka (x2)",
+    "maharashtra: parts of maharashtra (x2)",
+    "karnataka: uttar kashia (x1)",
+    "kerala: southern parts (x1)",
+    "kerala: malikkeri (x1)",
+    "maharashtra: marathwada (x1)",
+    "assam: 21 districts of assam (x1)",
+    "assam: 14 districts of assam (x1)",
+    "karnataka: urban (x1)",
+    "karnataka: rural (x1)",
+    "karnataka: uttar kashi (x1)"
+  ],
+  "event_district_pairs": 5944,
+  "events_with_no_resolved_district": 11,
+  "flooded_district_days": 59972,
+  "pilot_district_days_total": 929196,
+  "flood_day_base_rate_pct": 6.454
+}

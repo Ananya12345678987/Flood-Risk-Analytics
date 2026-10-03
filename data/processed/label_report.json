@@ -1,0 +1,13 @@
+{
+  "reliable_max_span_days": 14,
+  "pairs_reliable": 5248,
+  "pairs_ambiguous": 696,
+  "label_rows": {
+    "ambiguous": 45596,
+    "ongoing": 9507,
+    "onset": 4869
+  },
+  "district_days_total": 929196,
+  "district_days_usable_for_ml": 874093,
+  "positive_rate_pct_of_usable": 0.557
+}

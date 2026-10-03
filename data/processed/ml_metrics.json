@@ -1,0 +1,50 @@
+{
+  "split": {
+    "fit": [
+      2000,
+      2012
+    ],
+    "tune": [
+      2013,
+      2015
+    ],
+    "test": [
+      2016,
+      2020
+    ],
+    "shift": [
+      2021,
+      2023
+    ]
+  },
+  "test": {
+    "roc_auc": 0.8251,
+    "pr_auc": 0.0347,
+    "prevalence": 0.0048,
+    "threshold": 0.042773229933919764,
+    "tp": 134,
+    "fp": 2053,
+    "fn": 606,
+    "tn": 150678,
+    "precision": 0.0613,
+    "recall": 0.1811,
+    "f1": 0.0916,
+    "recall_in_top5pct_days": 0.3892,
+    "accuracy": 0.9827
+  },
+  "shift": {
+    "roc_auc": 0.8496,
+    "pr_auc": 0.1217,
+    "prevalence": 0.0164,
+    "threshold": 0.042773229933919764,
+    "tp": 523,
+    "fp": 2851,
+    "fn": 1370,
+    "tn": 110503,
+    "precision": 0.155,
+    "recall": 0.2763,
+    "f1": 0.1986,
+    "recall_in_top5pct_days": 0.3629,
+    "accuracy": 0.9634
+  }
+}
