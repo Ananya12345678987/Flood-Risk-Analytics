@@ -14,3 +14,4 @@ data/processed/*
 !data/processed/*.geojson
 !data/processed/analytics/
 data/processed/analytics/rain_monthly/
+data/tmp_smoke.parquet/
